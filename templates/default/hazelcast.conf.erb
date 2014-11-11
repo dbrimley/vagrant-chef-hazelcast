@@ -1,0 +1,23 @@
+# hazelcast
+ 
+description "hazelcast daemon"
+
+ 
+start on (filesystem and net-device-up IFACE=lo)
+stop on runlevel [!2345]
+ 
+env DAEMON="<%= node['hazelcast']['current_dir'] %><%=node['hazelcast']['start_server'] %>"
+#TODO: improve the server.sh script to create a pid file
+env PID=<%= node['hazelcast']['pid'] %>
+ 
+
+respawn
+respawn limit 10 5
+#oom never
+ 
+pre-start script
+    test -f <%= node['hazelcast']['current_dir'] %>/lib/hazelcast-<%= node['hazelcast']['version']%>.jar || { stop; exit 0; }
+end script
+
+exec java -server -Xms256M -Xmx256M -Djava.net.preferIPv4Stack=true -Dhazelcast.config=/opt/hazelcast/bin/hazelcast.xml -cp <%= node['hazelcast']['current_dir'] %>/lib/hazelcast-<%= node['hazelcast']['version']%>.jar:<%= node['hazelcast']['current_dir'] %>/lib/hazelcast-cloud-<%= node['hazelcast']['version']%>.jar com.hazelcast.core.server.StartServer
+
