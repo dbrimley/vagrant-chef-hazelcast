@@ -4,7 +4,7 @@
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
 
-NUM_BOXES=3
+NUM_BOXES=10
 
 Vagrant.require_version ">= 1.5.0"
 
@@ -34,7 +34,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   
         override.vm.provision "chef_solo" do |chef|
           #chef.log_level = :debug
-          chef.cookbooks_path = "/Users/dbrimley/Sources/chef-repo/cookbooks"
+          chef.cookbooks_path = "../../../chef-repo/cookbooks"
           chef.environments_path = "./environments/virtualbox"
           chef.environment = "default"
           chef.add_recipe "hazelcast"
@@ -68,7 +68,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     override.vm.provision "chef_solo" do |chef|
 
       chef.log_level = :debug
-      chef.cookbooks_path = "/Users/dbrimley/Sources/chef-repo/cookbooks"
+      chef.cookbooks_path = "../../../chef-repo/cookbooks"
       chef.environments_path = "./environments/aws"
       chef.environment = "default"        
       chef.json = {
