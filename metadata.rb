@@ -8,6 +8,7 @@ version          '0.1.0'
 
 depends 'zip'
 depends 'java'
+depends 'ark'
 
 %w{ ubuntu debian centos redhat amazon scientific oracle fedora }.each do |os|
   supports os
