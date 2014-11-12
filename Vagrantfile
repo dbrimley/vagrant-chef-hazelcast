@@ -4,7 +4,7 @@
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
 
-NUM_BOXES=10
+NUM_BOXES=1
 
 Vagrant.require_version ">= 1.5.0"
 
@@ -37,7 +37,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
           chef.cookbooks_path = "../../../chef-repo/cookbooks"
           chef.environments_path = "./environments/virtualbox"
           chef.environment = "default"
-          chef.add_recipe "hazelcast"
+          chef.add_recipe "vagrant-chef-hazelcast"
         end
   end
 
@@ -81,7 +81,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                       :network_aws_tag_key => "hazelcast_service",
                       :network_aws_tag_value => "true"
                     }}
-      chef.add_recipe "hazelcast"
+      chef.add_recipe "vagrant-chef-hazelcast"
 
     end
 
